@@ -188,6 +188,7 @@ end
 
 function renderUIOnce()
     global UI_Components;
+    disp("hi")
     
     %Generate New World
     UI_Components.pb = uicontrol('style','push',...
@@ -198,14 +199,33 @@ function renderUIOnce()
                  'callback',{@generateWorld});
              
     %Minimap
-    UI_Components.MinimapPanel = uipanel(gcf,'Position',[0.85 0.75 0.15 0.25]);
+    f=gcf;
+    Ip = f.InnerPosition(4)/4;
+    IpW = f.InnerPosition(4)-Ip;
+    IpH = f.InnerPosition(3)-Ip;
+    UI_Components.MinimapPanel = uipanel(gcf,'Units','pixels','Position',[IpH+5,IpW+5,Ip,Ip]);
+    
+    
+    
+    %UI_Components.MinimapPanel.Title
+    
+    
     set(UI_Components.MinimapPanel, 'BorderType', 'none','BackgroundColor',[64, 50, 35]/255)
     
     UI_Components.MinimapAxes = axes(UI_Components.MinimapPanel);
-    
-    subplot(UI_Components.MinimapAxes,'Position',[-0.2,-0.2,1.4,1.4]);
+    subplot(UI_Components.MinimapAxes,'Position',[0,0,1,1]);
     
     UI_Components.Rendered = true;
+    
+    set(f,'SizeChangedFcn',@sbar)
+end
+function sbar(~,~)
+    global UI_Components;
+    delete(UI_Components.MinimapAxes)
+    delete(UI_Components.pb)
+    delete(UI_Components.MinimapPanel)
+    renderUIOnce()
+    renderUI()
 end
 
 function renderUI()
@@ -234,7 +254,7 @@ function renderUI()
     end
     pos=[Player_Data.Y-(0.5*msize),Player_Data.X-(0.5*msize),msize,msize]; 
     rectangle('Position',pos,'Curvature',[1 1],'FaceColor',[1,1,1],'LineWidth',0.001);
-    
+    axis image
     set(UI_Components.MinimapAxes,'visible','off');
     set(gcf,'CurrentAxes',ax)
     

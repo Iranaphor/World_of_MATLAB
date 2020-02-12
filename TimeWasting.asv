@@ -198,17 +198,20 @@ function renderUIOnce()
                  'callback',{@generateWorld});
              
     %Minimap
-    UI_Components.MinimapPanel = uipanel(gcf,'Position',[0.85 0.75 0.15 0.25]);
+    f=gcf;
+    Ip = f.InnerPosition(4)/4;
+    UI_Components.MinimapPanel = uipanel(gcf,'Position',[0.75 0.75 0.25 0.25]);
+    
+    
+    
+    %UI_Components.MinimapPanel.Title
+    
+    
+    set(UI_Components.MinimapPanel, 'BorderType', 'none','BackgroundColor',[64, 50, 35]/255)
+    
     UI_Components.MinimapAxes = axes(UI_Components.MinimapPanel);
-    i = (X-1)/W;
-    j = (Y-1)/H;
+    subplot(UI_Components.MinimapAxes,'Position',[0,0,1,1]);
     
-    ax = subplot('Position',[i,j,1/W,1/H]);
-    
-    if ~(nargin == 5)
-        set(gcf,'menubar','none','NumberTitle','off');
-    else
-        set(gcf,'menubar','figure','NumberTitle','on');
     UI_Components.Rendered = true;
 end
 
@@ -223,16 +226,22 @@ function renderUI()
 
     axes(UI_Components.MinimapAxes);
     
-    Map = World_Data.Map;
+    Map = World_Data.Map';
     
-    psize=10;
+    psize=5;
     Map(floor(Player_Data.X)-psize:floor(Player_Data.X)+psize,...
-        floor(Player_Data.Y)-psize:floor(Player_Data.Y)+psize) = 1;
+        floor(Player_Data.Y)-psize:floor(Player_Data.Y)+psize) = 0.52;
     
     msize=100;
-    imagesc(UI_Components.MinimapAxes,Map(floor(Player_Data.X)-msize:floor(Player_Data.X)+msize,...
-                                          floor(Player_Data.Y)-msize:floor(Player_Data.Y)+msize));
-                                      
+    try
+        imagesc(UI_Components.MinimapAxes,Map(floor(Player_Data.X)-msize:floor(Player_Data.X)+msize,...
+                                              floor(Player_Data.Y)-msize:floor(Player_Data.Y)+msieze));
+    catch
+        imagesc(UI_Components.MinimapAxes,Map);
+    end
+    pos=[Player_Data.Y-(0.5*msize),Player_Data.X-(0.5*msize),msize,msize]; 
+    rectangle('Position',pos,'Curvature',[1 1],'FaceColor',[1,1,1],'LineWidth',0.001);
+    axis image
     set(UI_Components.MinimapAxes,'visible','off');
     set(gcf,'CurrentAxes',ax)
     
