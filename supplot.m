@@ -1,4 +1,4 @@
-function ax = supplot(W,H,X,Y,hide_bar)
+function ax = supplot(W,H,X,Y,~)
     
     i = (X-1)/W;
     j = (Y-1)/H;

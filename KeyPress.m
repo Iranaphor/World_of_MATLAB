@@ -1,4 +1,6 @@
 function KeyPress(~,event)
+%     disp("KeyPress")
+    
     tic
     global Window_Settings;
     global Player_Data;
@@ -17,7 +19,7 @@ function KeyPress(~,event)
         return;
     end
     
- 
+    
     %Move Player
     A=Player_Data.Angle;
     Xn = Player_Data.X;
@@ -63,7 +65,6 @@ function KeyPress(~,event)
     
     
     %Check for Cliff Movement
-%     disp(Zn+" <= "+Player_Data.Z + " ?")
     if (Zn<=Player_Data.Z)
         Player_Data.X = Xn; %Only save new positions if movement is valid.
         Player_Data.Y = Yn;

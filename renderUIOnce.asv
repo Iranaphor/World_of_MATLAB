@@ -1,5 +1,5 @@
 function renderUIOnce()
-%     disp("renderUIOnce")
+    disp("renderUIOnce")
     
     %Generate New World
     uicontrol('style','push',...
@@ -30,7 +30,7 @@ end
 function window_resize_callback_inbedded(~,~)
 %     disp("window_resize_callback_inbedded")
         
-    delete(findobj('Tag','MinimapPanel')); %TODO: Swap these from deleteobj to move/resizeobj
+    delete(findobj('Tag','MinimapPanel')); %TODO: Swap
     delete(findobj('Tag','ReloadButton'));
     
     renderUIOnce()

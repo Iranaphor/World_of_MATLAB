@@ -6,10 +6,12 @@ global UI_Components;
 Window_Settings.Docked = false;
 UI_Components.Rendered = false;
 UI_Components.all = [];
-generateWorld()
+wgenerateWorld()
 
 function generateWorld(varargin)
     supplot(1,1,1,1);
+    f=findobj(gcf); set(f(2),'Tag','SuperPlot');
+    
     disp(varargin)
     % Setup World Details
     global World_Data;
