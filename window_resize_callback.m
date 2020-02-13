@@ -1,4 +1,5 @@
-function window_resize_callback1(~,~)
+function window_resize_callback(~,~)
+    disp("window_resize_callback")
     global UI_Components;
     delete(UI_Components.MinimapAxes)
     delete(UI_Components.pb)

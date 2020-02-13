@@ -5,6 +5,7 @@ global Window_Settings;
 global UI_Components;
 Window_Settings.Docked = false;
 UI_Components.Rendered = false;
+UI_Components.all = [];
 generateWorld()
 
 function generateWorld(varargin)
