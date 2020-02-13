@@ -3,8 +3,6 @@ function renderOnce()
     
     global World_Data;
     global Player_Data;
-
-    
     
     %Display World
     surf(findobj('Tag','SuperPlot'),World_Data.Map,'Tag','MapSurf');

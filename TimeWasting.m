@@ -6,7 +6,7 @@ global UI_Components;
 Window_Settings.Docked = false;
 UI_Components.Rendered = false;
 UI_Components.all = [];
-wgenerateWorld()
+generateWorld()
 
 function generateWorld(varargin)
     supplot(1,1,1,1);
