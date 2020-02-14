@@ -1,6 +1,5 @@
 function render()
 %     disp("render")
-    
     global Player_Data;
     
     %Update Player Location
@@ -29,5 +28,6 @@ function render()
     %disp(toc)
     set(gcf,'KeyPressFcn',@KeyPress);
     %tic
+
     renderUI()
 end

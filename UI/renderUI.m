@@ -1,6 +1,6 @@
 function renderUI()
 %     disp("renderUI")
-    
+
     global World_Data;
     global Player_Data;
     
@@ -17,17 +17,19 @@ function renderUI()
     
     %Plot map on axes
     msize=100;
-    try %TODO: Find a way to reduce the necceccity for reloadingh img each time
+
+    try %TODO: Find a way to reduce the necceccity for reloading img each time
         imagesc(MinimapAxes,Map(floor(Player_Data.X)-msize:floor(Player_Data.X)+msize,...
                                 floor(Player_Data.Y)-msize:floor(Player_Data.Y)+msize),...
                                 'Tag','MinimapImage');
     catch
         imagesc(MinimapAxes,Map,'Tag','MinimapImage');
     end
+
     f=findobj('Tag','MinimapImage'); set(f.Parent,'Tag','MinimapAxes');
-    axis(f.Parent,'equal');
+%     axis(f.Parent,'equal');   %Causes too much lag
     set(MinimapAxes,'visible','off');
     
     set(gcf,'CurrentAxes',findobj('Tag','SuperPlot'))
-    
+
 end

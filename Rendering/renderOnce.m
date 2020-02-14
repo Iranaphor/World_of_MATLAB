@@ -1,6 +1,6 @@
 function renderOnce()
 %     disp("renderOnce")
-    
+
     global World_Data;
     global Player_Data;
     
@@ -25,7 +25,7 @@ function renderOnce()
     
     
     %RENDER THE WATER WITH A SECOND SURF MAP
-    
+
     renderUIOnce()
     render()
 end

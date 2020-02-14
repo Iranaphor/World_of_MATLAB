@@ -25,9 +25,9 @@ function renderUIOnce()
     
     
     %Set Resize Callback
-    set(f,'SizeChangedFcn',@window_resize_callback_inbedded)
+    set(f,'SizeChangedFcn',@window_resize_callback_enbedded)
 end
-function window_resize_callback_inbedded(~,~)
+function window_resize_callback_enbedded(~,~)
 %     disp("window_resize_callback_inbedded")
         
     delete(findobj('Tag','MinimapPanel')); %TODO: Swap these from deleteobj to move/resizeobj
