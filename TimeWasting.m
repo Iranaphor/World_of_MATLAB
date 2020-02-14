@@ -1,4 +1,5 @@
 close, clc, clear
+add_all_files()
 
 % Setup Window Details
 global Window_Settings;
