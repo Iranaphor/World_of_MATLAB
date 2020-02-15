@@ -1,4 +1,4 @@
-classdef Camera
+classdef Camera < handle
     
     properties
         Render_Distance

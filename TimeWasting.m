@@ -1,16 +1,11 @@
 close, clc, clear
 add_all_files()
-
-% Setup Window Details
-global Window_Settings;
-Window_Settings.Docked = false;
-
 generateWorld()
 
-function generateWorld(varargin)
+function generateWorld()
+    % Create and Label Window
     supplot(1,1,1,1);
     f=findobj(gcf); set(f(2),'Tag','SuperPlot');
-    disp(varargin)
     
     % Setup World Details
     global World_Data;
@@ -24,7 +19,8 @@ function generateWorld(varargin)
     global Camera_Data;
     Camera_Data = Camera(200);
     
-    renderOnce();
+    %Render The View
+    global Visuals_Manager;
+    Visuals_Manager = VisualsManager();
     
 end
-

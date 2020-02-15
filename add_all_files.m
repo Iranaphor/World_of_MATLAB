@@ -1,7 +1,6 @@
 function add_all_files()
     addpath("Interaction")
-    addpath("Rendering")
+    addpath("Visuals")
     addpath("Support")
     addpath("Objects")
-    addpath("UI")
 end
