@@ -74,7 +74,6 @@ classdef Player < handle
                 Player_Data.Angle = A;
             end
             
-            Player_Data
         end
         
     end

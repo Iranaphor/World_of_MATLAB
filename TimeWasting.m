@@ -22,5 +22,4 @@ function generateWorld()
     %Render The View
     global Visuals_Manager;
     Visuals_Manager = VisualsManager();
-    
 end

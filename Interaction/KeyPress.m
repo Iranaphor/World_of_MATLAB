@@ -22,5 +22,5 @@ function KeyPress(~,event)
     Player_Data.Move(KEY, World_Data);
     
     Visuals_Manager.UpdateRendering();
-    disp(toc)
+%     disp(toc)
 end
