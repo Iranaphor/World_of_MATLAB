@@ -64,7 +64,7 @@ classdef VisualsManager < handle
             end
             hold on
             for i = 1:2%length(plots)
-                spawnHouse(houses(1,i),houses(2,i),houses(3,i),"house-"+i);
+                spawnHome(houses(1,i),houses(2,i),houses(3,i));
             end
             hold off
             
