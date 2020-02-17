@@ -34,7 +34,7 @@ classdef VisualsManager < handle
             hold on
             ax=gca;
             ax.Projection = 'perspective';
-            set(ax,'Zlim',[0,2]);
+            set(ax,'Zlim',[0,2000]);
             shading interp;
             c=colormap(summer); c(1,:)=[0.15,0.55,0.85]; colormap(c)
             
@@ -51,7 +51,7 @@ classdef VisualsManager < handle
             %RENDER THE WATER WITH A SECOND SURF MAP
             
             %Spawn Houses
-            islands = World_Data.Map>0.51;
+            islands = World_Data.Map>510;
             ero = imerode(islands,strel('disk',10));
             rec=imreconstruct(ero,islands);
             houseplots = bwmorph(rec,'shrink','Inf');
@@ -81,9 +81,9 @@ classdef VisualsManager < handle
             Player.ZData(1) = Player_Data.Z;
             
             %Update Camera Target [0.015,10,0.005,80]
-            cT=0.015;
+            cT=15;
             cD=10;
-            cP=0.005;
+            cP=5;
             cV=80;
             
             CameraAxes = Player.Parent;
@@ -97,8 +97,6 @@ classdef VisualsManager < handle
             CameraAxes.CameraPosition  = [CamX, CamY, CamPitch];
             CameraAxes.CameraViewAngle = cV;
             
-            
-            disp(toc)
             set(gcf,'KeyPressFcn',@KeyPress);
             
         end
@@ -157,7 +155,7 @@ classdef VisualsManager < handle
             %Plot Player position on map
             psize=5;
             Map(floor(Player_Data.X)-psize:floor(Player_Data.X)+psize,...
-                floor(Player_Data.Y)-psize:floor(Player_Data.Y)+psize) = 0.52;
+                floor(Player_Data.Y)-psize:floor(Player_Data.Y)+psize)=520;
             
             %Plot map on axes
             msize=100;

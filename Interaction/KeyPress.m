@@ -26,5 +26,5 @@ function KeyPress(~,event)
     end
     
     Visuals_Manager.UpdateRendering();
-%     disp(toc)
+    disp(toc)
 end
