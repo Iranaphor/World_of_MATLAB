@@ -4,7 +4,7 @@ generateWorld()
 
 function generateWorld()
     % Create and Label Window
-    supplot(1,1,1,1);
+    supplot(1,1,1,1,2);
     f=findobj(gcf); set(f(2),'Tag','SuperPlot');
     
     % Setup World Details

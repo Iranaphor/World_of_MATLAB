@@ -55,18 +55,8 @@ classdef VisualsManager < handle
             ero = imerode(islands,strel('disk',10));
             rec=imreconstruct(ero,islands);
             houseplots = bwmorph(rec,'shrink','Inf');
+            househeights = 
             
-            plots = regionprops(houseplots);
-            houses = zeros(3,length(plots));
-            for i=1:2%length(plots)
-                houses(1:2,i) = plots(i).Centroid';
-                houses(3,i) = World_Data.Map(houses(2,i),houses(1,i));
-            end
-            hold on
-            for i = 1:2%length(plots)
-                spawnHouse(houses(1,i),houses(2,i),houses(3,i),"house-"+i);
-            end
-            hold off
             
         end
         

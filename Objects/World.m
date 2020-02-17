@@ -16,7 +16,7 @@ classdef World < handle
 
             World_Data.SeaLevel=0.5;
 
-            World_Data.Stars=(rand(3,0.005*(W*W)).*[2000,2000,0.2]')+[-1000,-1000,0.7]';
+            World_Data.Stars=(rand(3,0.005*(W*W)).*[2000,2000,0.2]')+[-W/2,-W/2,0.7]';
 
             World_Data.Map=rand(W,W);
             World_Data.Map(45:55,45:55)=World_Data.Map(45:55,45:55)+0.2;

@@ -18,8 +18,12 @@ function KeyPress(~,event)
         return;
     end
     
-    %Move Player based on Input Key
-    Player_Data.Move(KEY, World_Data);
+    %Move Player
+    a=["w","a","s","d"];
+    if any(contains(a,KEY))
+        %Move Player based on Input Key
+        Player_Data.Move(KEY, World_Data);
+    end
     
     Visuals_Manager.UpdateRendering();
 %     disp(toc)

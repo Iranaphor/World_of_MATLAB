@@ -6,6 +6,9 @@ classdef Player < handle
         Z
         Angle %Change to Yaw
         OffsetZ
+        boatX
+        boatY
+        boatZ
     end
     
     methods
@@ -73,6 +76,16 @@ classdef Player < handle
                 Player_Data.Z=Zn;
                 Player_Data.Angle = A;
             end
+            
+        end
+        
+        function dumpboat(Player_Data, KEY, World_Data)
+            
+            
+            
+            
+            
+            
             
         end
         
