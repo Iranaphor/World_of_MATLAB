@@ -1,6 +1,4 @@
 classdef VisualsManager < handle
-    %RENDERER Summary of this class goes here
-    %   Detailed explanation goes here
     
     properties
         Docked
@@ -28,45 +26,16 @@ classdef VisualsManager < handle
             global World_Data;
             global Player_Data;
             
-            %Display World
-            surf(findobj('Tag','SuperPlot'),World_Data.Map,'Tag','MapSurf');
-            f=findobj(gcf); set(f(2),'Tag','SuperPlot');
+            World_Data.SpawnIslands();
             hold on
-            ax=gca;
-            ax.Projection = 'perspective';
-            set(ax,'Zlim',[0,2000]);
-            shading interp;
-            c=colormap(summer); c(1,:)=[0.15,0.55,0.85]; colormap(c)
+            World_Data.SpawnWater();
+            World_Data.SpawnStars();
+            %World_Data.SpawnHouses();
             
-            scatter3(World_Data.Stars(1,:),World_Data.Stars(2,:),World_Data.Stars(3,:),1,'*','w','Tag','StarScatter');
-            
-            scatter3(Player_Data.X,Player_Data.Y,Player_Data.Z,200,'filled','MarkerFaceColor',[64, 50, 35]/255,'Tag','PlayerScatter');
-            
-            hold off
+            Player_Data.SpawnPlayer();
             
             set(gcf,'Color',[0.05,0.1,0.3])
-            set(ax,'visible','off')
-            
-            
-            %RENDER THE WATER WITH A SECOND SURF MAP
-            
-            %Spawn Houses
-            islands = World_Data.Map>510;
-            ero = imerode(islands,strel('disk',10));
-            rec=imreconstruct(ero,islands);
-            houseplots = bwmorph(rec,'shrink','Inf');
-            
-            plots = regionprops(houseplots);
-            houses = zeros(3,length(plots));
-            for i=1:2%length(plots)
-                houses(1:2,i) = plots(i).Centroid';
-                houses(3,i) = World_Data.Map(houses(2,i),houses(1,i));
-            end
-            hold on
-            for i = 1:2%length(plots)
-                spawnHome(houses(1,i),houses(2,i),houses(3,i));
-            end
-            hold off
+            set(findobj('Tag','SuperPlot'),'visible','off')
             
         end
         

@@ -4,12 +4,12 @@ generateWorld()
 
 function generateWorld()
     % Create and Label Window
-    supplot(1,1,1,1,2);
+    supplot(1,1,1,1);
     f=findobj(gcf); set(f(2),'Tag','SuperPlot');
     
     % Setup World Details
     global World_Data;
-    World_Data = World(1000);
+    World_Data = World(500);
 
     % Setup Player Details
     global Player_Data;

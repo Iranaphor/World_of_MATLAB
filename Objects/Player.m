@@ -79,14 +79,11 @@ classdef Player < handle
             
         end
         
-        function dumpboat(Player_Data, KEY, World_Data)
-            
-            
-            
-            
-            
-            
-            
+        function SpawnPlayer(P)
+            C=[64, 50, 35]/255;
+            scatter3(P.X,P.Y,P.Z,200,'filled',...
+                    'MarkerFaceColor',C,...
+                    'Tag','PlayerScatter');
         end
         
     end

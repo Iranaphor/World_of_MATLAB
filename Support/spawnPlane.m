@@ -1,4 +1,4 @@
-function spawnPlane(c,varargin)
+function spawnPlane(c,tag,varargin)
 
     %P1: [x1, y1, z1]
     X=zeros(length(varargin),1);
@@ -10,5 +10,5 @@ function spawnPlane(c,varargin)
         Z(i) = varargin{i}(3);
     end
     
-    fill3(X,Y,Z,c)
+    fill3(X,Y,Z,c,'Tag',tag)
 end
