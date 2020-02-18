@@ -12,12 +12,13 @@ classdef Player < handle
     end
     
     methods
-        function Player_Data = Player(Map)
-            X=size(Map,1)/2;
-            Y=size(Map,2)/2;
+        function Player_Data = Player(World_Data)
+            X=size(World_Data.Map,1)/2;
+            Y=size(World_Data.Map,2)/2;
             Player_Data.X = X;
             Player_Data.Y = Y;
-            Player_Data.Z = Map(floor(X),floor(Y));
+            Player_Data.Z = World_Data.Map(floor(X),floor(Y));
+            Player_Data.Z = max(World_Data.Map(X,Y),World_Data.WaterMap(X,Y));
             Player_Data.Angle = 0;
             Player_Data.OffsetZ = 0.0;
         end
@@ -56,7 +57,7 @@ classdef Player < handle
             Y1 = floor(Yn);
             X2 = ceil(Xn)+(floor(Xn)==Xn);
             Y2 = ceil(Yn)+(floor(Yn)==Yn);
-            R = World_Data.Map(Y1:Y2,X1:X2);
+            R = max(World_Data.Map(Y1:Y2,X1:X2),World_Data.WaterMap(Y1:Y2,X1:X2));
             
             Px=floor(10*(Xn-floor(Xn)))+1;
             Rx1 = linspace(R(1,1),R(1,2),10);
@@ -73,7 +74,7 @@ classdef Player < handle
             if (Zn<=Player_Data.Z)
                 Player_Data.X = Xn; %Only save new positions if movement is valid.
                 Player_Data.Y = Yn;
-                Player_Data.Z=Zn;
+                Player_Data.Z = Zn;
                 Player_Data.Angle = A;
             end
             

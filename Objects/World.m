@@ -1,13 +1,14 @@
 classdef World < handle
-   
+    
     properties
         Size
         PlayerBoundary
         SeaLevel
         Stars
         Map
-        HouseList
         MapSurf
+        WaterMap
+        HouseList
     end
     
     methods
@@ -15,18 +16,19 @@ classdef World < handle
             
             World_Data.Size=W;
             World_Data.PlayerBoundary=[W,W]*0.95;
-
+            
             World_Data.SeaLevel=500;
-
+            
             World_Data.Stars=(rand(3,0.005*(W*W)).*[2000,2000,0.2]')+[-W/2,-W/2,750]';
-
+            
             World_Data.Map=rand(W,W).*1000;
-%             World_Data.Map(45:55,45:55)=World_Data.Map(45:55,45:55)+20;
+            %             World_Data.Map(45:55,45:55)=World_Data.Map(45:55,45:55)+20;
             
             for i=1:19
-                World_Data.Map=smoothdata(World_Data.Map'); 
+                World_Data.Map=smoothdata(World_Data.Map');
             end
-            World_Data.Map(World_Data.Map<(2+World_Data.SeaLevel))=World_Data.SeaLevel;
+            %             World_Data.Map(World_Data.Map<(2+World_Data.SeaLevel))=World_Data.SeaLevel;
+            World_Data.WaterMap = (World_Data.Map.*0)+500.5;
             
         end
         
@@ -40,33 +42,42 @@ classdef World < handle
             ax.Projection = 'perspective';
             set(ax,'Zlim',[0,2000]);
             shading interp;
-            c=colormap(summer); c(1,:)=[0.15,0.55,0.85]; colormap(c)
+            
+            c1=cmap([.6,.8,.8],[ 0,.5, 0],40);
+            c2=cmap([ 0,.5, 0],[ 1, 1, 0], 5);
+            c3=cmap([ 1, 1, 0],[ 0,.4,.8],10);
+            c4=cmap([ 0,.4,.8],[ 0, 0, 1],40);
+            colormap([c4;c3;c2;c1])
             
         end
         
         function SpawnWater(World_Data)
             %RENDER THE WATER WITH A SECOND SURF MAP
-            S=surfl((World_Data.Map.*0)+500.5);
-            set(S,'EdgeColor','none','FaceColor',[0,.2,1],'Tag','WaterSurf');
-
-            c=colormap(summer); c(1,:)=[0.15,0.55,0.85]; colormap(c)
+            S(1) = findobj('Tag','MapSurf');
+            S(2) = surfl(World_Data.WaterMap);
+            set(S(2),'EdgeColor','none','FaceAlpha',0.5,'Tag','WaterSurf');
             
+            c1=cmap([ 0, 1, 0],[ 0,.5, 0],12);
+            c2=cmap([ 0,.5, 0],[ 1, 1, 0],3);
+            c3=cmap([ 1, 1, 0],[ 0,.4,.8],3);
+            c4=cmap([ 0,.4,.8],[ 0, 0, 1],12);
             
+            cmapX = [c4;c3;c2;c1];
+            cmapY = (cmapX.*0)+[0,0.3,1];
+            cmapL = [cmapX;cmapY];
+            colormap(cmapL)
             
-            %{
+            Z = World_Data.Map(:,:);
+            zmin = min(Z(:));
+            zmax = max(Z(:));
             
+            cdx = min(64,round(63*(Z-zmin)/(zmax-zmin))+1);
+            cdy = cdx+64;
             
-            islands
-            water
+            set(S(1),'CData',cdx)
+            set(S(2),'CData',cdy)
             
-            I = islandcolours(32)
-            W = watercolours(32)
-            clrs = [I;W]
-            
-            
-            %}
-            
-            
+            caxis([min(cdx(:)) max(cdy(:))])
             
             
         end
@@ -98,7 +109,7 @@ classdef World < handle
                     House(houses(1,i),houses(2,i),houses(3,i),"house_"+i);
             end
             
-        end 
+        end
         
     end
 end

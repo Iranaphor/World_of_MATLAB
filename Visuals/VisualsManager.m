@@ -137,6 +137,18 @@ classdef VisualsManager < handle
                 imagesc(MinimapAxes,Map,'Tag','MinimapImage');
             end
             
+            
+            %% FIX THIS!
+            %%%%% caxis([min(cdx(:)) max(cdy(:))])
+            
+            
+            
+            
+            
+            
+            %%
+            
+            
             f=findobj('Tag','MinimapImage'); set(f.Parent,'Tag','MinimapAxes');
             %     axis(f.Parent,'equal');   %Causes too much lag
             set(MinimapAxes,'visible','off');
