@@ -51,6 +51,24 @@ classdef World < handle
 
             c=colormap(summer); c(1,:)=[0.15,0.55,0.85]; colormap(c)
             
+            
+            
+            %{
+            
+            
+            islands
+            water
+            
+            I = islandcolours(32)
+            W = watercolours(32)
+            clrs = [I;W]
+            
+            
+            %}
+            
+            
+            
+            
         end
         
         function SpawnStars(World_Data)
