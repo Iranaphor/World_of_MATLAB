@@ -8,7 +8,7 @@ function generateWorld(~,~)
     
     % Setup World Details
     global World_Data;
-    World_Data = World(1000);
+    World_Data = World(500);
 
     % Setup Player Details
     global Player_Data;
