@@ -1,5 +1,3 @@
 # World_of_MATLAB
 
-o/ Master
-
-o/ from example_merge
+A bad game in MATLAB
