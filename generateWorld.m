@@ -1,4 +1,9 @@
 function generateWorld(~,~)
+    %% GENERATEWORLD generates an instance of the world
+    %
+    %  @author Iranaphor
+    %  @version 0.0.1
+    %  @since 0.0.1
     close, clc, clear
     add_all_files()
     

@@ -1,6 +1,9 @@
 function KeyPress(~,event)
-%     disp("KeyPress")
-    
+    %% KEYPRESS handle key presses for the application, used as a callback function
+    %
+    %  @author Iranaphor
+    %  @version 0.0.1
+    %  @since 0.0.1
     tic
     global Player_Data;
     global World_Data;
