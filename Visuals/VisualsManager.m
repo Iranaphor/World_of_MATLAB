@@ -142,6 +142,7 @@ classdef VisualsManager < handle
         
         function renderUIOnce()
             %     disp("renderUIOnce")
+            set(gcf,'Units','pixels');
             
             %Generate New World
             uicontrol('style','push',...
@@ -158,6 +159,7 @@ classdef VisualsManager < handle
             Ip = f.InnerPosition(4)/4;
             IpW = f.InnerPosition(4)-Ip;
             IpH = f.InnerPosition(3)-Ip;
+            
             minimap_panel = uipanel(gcf,'Units','pixels','Position',[IpH+5,IpW+5,Ip,Ip],'Tag','MinimapPanel');
             set(findobj('Tag','MinimapPanel'), 'BorderType', 'none', 'BackgroundColor', [64, 50, 35]/255);
             
