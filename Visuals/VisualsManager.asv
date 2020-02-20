@@ -1,18 +1,20 @@
 classdef VisualsManager < handle
     
     properties
+        Docked
         OldPosition
+        Fullscreen
         window_state
     end
     
     methods
         function obj = VisualsManager()
-            %obj.Docked = true;
+            obj.Docked = true;
             obj.renderOnce()
             obj.renderUIOnce()
             obj.UpdateRendering()
-            obj.window_state = "floating";
             obj.OldPosition = get(gcf,'Position');
+            obj.Fullscreen = false;
         end
         
         function UpdateRendering(obj)
@@ -21,7 +23,7 @@ classdef VisualsManager < handle
         end
         
         function AdjustWindow(obj, KEY)
-            disp("Issues with this.")
+            
             switch obj.window_state
                 
                 %When the window is docked
@@ -50,43 +52,60 @@ classdef VisualsManager < handle
                         case "escape"
                             obj.makeDocked()
                     end
+                    
             end
+            function makeFloating(obj)
+                set(gcf, 'WindowStyle', 'Normal');
+            end
+            function makeFullscreen(obj)
+                set(gcf, 'WindowStyle', 'Normal');
+            end
+            function makeDocked(obj)
+                obj.
+                set(gcf, 'WindowStyle', 'Docked');
+            end
+            
+            %Dock Window
+            if (KEY == "escape")
+                if (Visuals_Manager.Docked == true)
+                    set(gcf, 'WindowStyle', 'Normal');
+                else
+                    set(gcf, 'WindowStyle', 'Docked');
+                end
+                Visuals_Manager.Docked = ~Visuals_Manager.Docked;
+                return;
+            end
+            if (KEY=="f11")
+                
+                %If in full screen mode
+                if (Visuals_Manager.Fullscreen == true)
+                    
+                    %Set to smallscreen
+                    Visuals_Manager.Fullscreen = false;
+                    set(gcf, 'Units', 'pixels', 'Position', Visuals_Manager.OldPosition)
+                    
+                    %If not in fullscreen mode
+                else
+                    
+                    %If docked
+                    if (Visuals_Manager.Docked == true)
+                        
+                        %Undock the Window
+                        Visuals_Manager.Docked = false;
+                        set(gcf, 'WindowStyle', 'Normal');
+                    end
+                    
+                    %Save old position
+                    Visuals_Manager.OldPosition = get(gcf,'Position');
+                    
+                    %Set to fullscreen
+                    Visuals_Manager.Fullscreen = true;
+                    set(gcf, 'Units', 'normalized', 'Position', [0,0,0.5,1])
+                    
+                end
+            end
+            
         end
-        function makeFloating(obj)
-            obj.window_state = "floating";
-            
-            %Undock the window
-            set(gcf, 'WindowStyle', 'Normal');
-
-            %Set the posision to match the old position
-            set(gcf, 'Units', 'pixels')
-            set(gcf, 'Position', obj.OldPosition)
-        end
-        function makeFullscreen(obj)
-            obj.window_state = "fullscreen";
-            
-            %Disable docked state
-            set(gcf, 'WindowStyle', 'Normal');
-            
-            %Save Position
-            obj.OldPosition = get(gcf,'Position');
-            
-            %Make fullscreen
-            set(gcf, 'Units', 'normalized');
-            set(gcf, 'Position', [0,0,0.5,1]);
-            disp(obj)
-        end
-        function makeDocked(obj)
-            obj.window_state = "docked";
-            
-            %Save the prior position
-            obj.OldPosition = get(gcf,'Position');
-            
-            %Dock the window
-            set(gcf, 'WindowStyle', 'Docked');
-            disp(obj)
-        end
-
     end
     
     methods (Static)
