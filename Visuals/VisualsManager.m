@@ -2,6 +2,8 @@ classdef VisualsManager < handle
     
     properties
         Docked
+        OldPosition
+        Fullscreen
     end
     
     methods
@@ -10,6 +12,8 @@ classdef VisualsManager < handle
             obj.renderOnce()
             obj.renderUIOnce()
             obj.UpdateRendering()
+            obj.OldPosition = get(gcf,'Position');
+            obj.Fullscreen = false;
         end
         
         function UpdateRendering(obj)
@@ -30,7 +34,7 @@ classdef VisualsManager < handle
             hold on
             World_Data.SpawnWater();
             World_Data.SpawnStars();
-            %World_Data.SpawnHouses();
+            World_Data.SpawnHouses();
             
             Player_Data.SpawnPlayer();
             

@@ -22,8 +22,7 @@ classdef World < handle
             World_Data.Stars=(rand(3,0.005*(W*W)).*[2000,2000,0.2]')+[-W/2,-W/2,750]';
             
             World_Data.Map=rand(W,W).*1000;
-            %             World_Data.Map(45:55,45:55)=World_Data.Map(45:55,45:55)+20;
-            
+%             World_Data.Map=padarray(World_Data.Map,[50,50],500);
             for i=1:19
                 World_Data.Map=smoothdata(World_Data.Map');
             end
@@ -99,7 +98,7 @@ classdef World < handle
             
             plots = regionprops(houseplots);
             houses = zeros(3,length(plots));
-            for i=1:2%length(plots)
+            for i=1:length(plots)
                 houses(1:2,i) = plots(i).Centroid';
                 houses(3,i) = World_Data.Map(houses(2,i),houses(1,i));
             end
