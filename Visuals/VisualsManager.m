@@ -1,15 +1,18 @@
 classdef VisualsManager < handle
     
     properties
-        Docked
+        OldPosition
+        window_state
     end
     
     methods
         function obj = VisualsManager()
-            obj.Docked = true;
+            %obj.Docked = true;
             obj.renderOnce()
             obj.renderUIOnce()
             obj.UpdateRendering()
+            obj.window_state = "floating";
+            obj.OldPosition = get(gcf,'Position');
         end
         
         function UpdateRendering(obj)
@@ -17,6 +20,68 @@ classdef VisualsManager < handle
             obj.renderUI()
         end
         
+        function AdjustWindow(obj, KEY)
+            disp("Issues with this.")
+            switch obj.window_state
+                
+                %When the window is docked
+                case "docked"
+                    switch(KEY)
+                        case "escape"
+                            obj.makeFloating()
+                    end
+                
+                %When the window is fullscreen
+                case "fullscreen"
+                    switch(KEY)
+                        case "f11"
+                            obj.makeFloating()
+                    end
+                %When the window is floating
+                case "floating"
+                    switch(KEY)
+                        case "f11"
+                            obj.makeFullscreen()
+                        case "escape"
+                            obj.makeDocked()
+                    end
+            end
+        end
+        function makeFloating(obj)
+            obj.window_state = "floating";
+            
+            %Undock the window
+            set(gcf, 'WindowStyle', 'Normal');
+
+            %Set the posision to match the old position
+            set(gcf, 'Units', 'pixels')
+            set(gcf, 'Position', obj.OldPosition)
+        end
+        function makeFullscreen(obj)
+            obj.window_state = "fullscreen";
+            
+            %Disable docked state
+            set(gcf, 'WindowStyle', 'Normal');
+            
+            %Save Position
+            obj.OldPosition = get(gcf,'Position');
+            
+            %Make fullscreen
+            set(gcf, 'Units', 'normalized');
+            set(gcf, 'Position', [0,0,1,1]);
+            disp(obj)
+        end
+        function makeDocked(obj)
+            obj.window_state = "docked";
+            
+            %Save the prior position
+            obj.OldPosition = get(gcf,'Position');
+            
+            %Dock the window
+            set(gcf, 'WindowStyle', 'Docked');
+            disp(obj)
+        end
+
     end
     
     methods (Static)
@@ -30,7 +95,7 @@ classdef VisualsManager < handle
             hold on
             World_Data.SpawnWater();
             World_Data.SpawnStars();
-            %World_Data.SpawnHouses();
+            World_Data.SpawnHouses();
             
             Player_Data.SpawnPlayer();
             
@@ -72,6 +137,7 @@ classdef VisualsManager < handle
         
         function renderUIOnce()
             %     disp("renderUIOnce")
+            set(gcf,'Units','pixels');
             
             %Generate New World
             uicontrol('style','push',...
@@ -88,6 +154,7 @@ classdef VisualsManager < handle
             Ip = f.InnerPosition(4)/4;
             IpW = f.InnerPosition(4)-Ip;
             IpH = f.InnerPosition(3)-Ip;
+            
             minimap_panel = uipanel(gcf,'Units','pixels','Position',[IpH+5,IpW+5,Ip,Ip],'Tag','MinimapPanel');
             set(findobj('Tag','MinimapPanel'), 'BorderType', 'none', 'BackgroundColor', [64, 50, 35]/255);
             
@@ -139,10 +206,7 @@ classdef VisualsManager < handle
             
             
             %% FIX THIS!
-            %%%%% caxis([min(cdx(:)) max(cdy(:))])
-            
-            
-            
+%             caxis([min(cdx(:)) max(cdy(:))])
             
             
             

@@ -9,6 +9,7 @@ classdef World < handle
         MapSurf
         WaterMap
         HouseList
+        islands_colormap
     end
     
     methods
@@ -22,8 +23,7 @@ classdef World < handle
             World_Data.Stars=(rand(3,0.005*(W*W)).*[2000,2000,0.2]')+[-W/2,-W/2,750]';
             
             World_Data.Map=rand(W,W).*1000;
-            %             World_Data.Map(45:55,45:55)=World_Data.Map(45:55,45:55)+20;
-            
+%             World_Data.Map=padarray(World_Data.Map,[50,50],500);
             for i=1:19
                 World_Data.Map=smoothdata(World_Data.Map');
             end
@@ -43,26 +43,22 @@ classdef World < handle
             set(ax,'Zlim',[0,2000]);
             shading interp;
             
-            c1=cmap([.6,.8,.8],[ 0,.5, 0],40);
-            c2=cmap([ 0,.5, 0],[ 1, 1, 0], 5);
-            c3=cmap([ 1, 1, 0],[ 0,.4,.8],10);
-            c4=cmap([ 0,.4,.8],[ 0, 0, 1],40);
-            colormap([c4;c3;c2;c1])
-            
-        end
-        
-        function SpawnWater(World_Data)
-            %RENDER THE WATER WITH A SECOND SURF MAP
-            S(1) = findobj('Tag','MapSurf');
-            S(2) = surfl(World_Data.WaterMap);
-            set(S(2),'EdgeColor','none','FaceAlpha',0.5,'Tag','WaterSurf');
-            
             c1=cmap([ 0, 1, 0],[ 0,.5, 0],12);
             c2=cmap([ 0,.5, 0],[ 1, 1, 0],3);
             c3=cmap([ 1, 1, 0],[ 0,.4,.8],3);
             c4=cmap([ 0,.4,.8],[ 0, 0, 1],12);
+            World_Data.islands_colormap = [c4;c3;c2;c1];
+            colormap(World_Data.islands_colormap)
             
-            cmapX = [c4;c3;c2;c1];
+        end
+        
+        function SpawnWater(World_Data)
+            %Render water with second surf map
+            S(1) = findobj('Tag','MapSurf');
+            S(2) = surfl(World_Data.WaterMap);
+            set(S(2),'EdgeColor','none','FaceAlpha',0.5,'Tag','WaterSurf');
+                        
+            cmapX = World_Data.islands_colormap;
             cmapY = (cmapX.*0)+[0,0.3,1];
             cmapL = [cmapX;cmapY];
             colormap(cmapL)
@@ -99,7 +95,7 @@ classdef World < handle
             
             plots = regionprops(houseplots);
             houses = zeros(3,length(plots));
-            for i=1:2%length(plots)
+            for i=1:length(plots)
                 houses(1:2,i) = plots(i).Centroid';
                 houses(3,i) = World_Data.Map(houses(2,i),houses(1,i));
             end
