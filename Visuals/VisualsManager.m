@@ -27,20 +27,15 @@ classdef VisualsManager < handle
                 %When the window is docked
                 case "docked"
                     switch(KEY)
-                        case "f11"
-                            obj.makeFullscreen()
                         case "escape"
                             obj.makeFloating()
                     end
                 
-                    
                 %When the window is fullscreen
                 case "fullscreen"
                     switch(KEY)
                         case "f11"
                             obj.makeFloating()
-                        case "escape"
-                            obj.makeDocked()
                     end
                 %When the window is floating
                 case "floating"
@@ -73,7 +68,7 @@ classdef VisualsManager < handle
             
             %Make fullscreen
             set(gcf, 'Units', 'normalized');
-            set(gcf, 'Position', [0,0,0.5,1]);
+            set(gcf, 'Position', [0,0,1,1]);
             disp(obj)
         end
         function makeDocked(obj)
@@ -211,10 +206,7 @@ classdef VisualsManager < handle
             
             
             %% FIX THIS!
-            %%%%% caxis([min(cdx(:)) max(cdy(:))])
-            
-            
-            
+%             caxis([min(cdx(:)) max(cdy(:))])
             
             
             

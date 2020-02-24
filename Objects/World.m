@@ -9,6 +9,7 @@ classdef World < handle
         MapSurf
         WaterMap
         HouseList
+        islands_colormap
     end
     
     methods
@@ -42,26 +43,22 @@ classdef World < handle
             set(ax,'Zlim',[0,2000]);
             shading interp;
             
-            c1=cmap([.6,.8,.8],[ 0,.5, 0],40);
-            c2=cmap([ 0,.5, 0],[ 1, 1, 0], 5);
-            c3=cmap([ 1, 1, 0],[ 0,.4,.8],10);
-            c4=cmap([ 0,.4,.8],[ 0, 0, 1],40);
-            colormap([c4;c3;c2;c1])
-            
-        end
-        
-        function SpawnWater(World_Data)
-            %RENDER THE WATER WITH A SECOND SURF MAP
-            S(1) = findobj('Tag','MapSurf');
-            S(2) = surfl(World_Data.WaterMap);
-            set(S(2),'EdgeColor','none','FaceAlpha',0.5,'Tag','WaterSurf');
-            
             c1=cmap([ 0, 1, 0],[ 0,.5, 0],12);
             c2=cmap([ 0,.5, 0],[ 1, 1, 0],3);
             c3=cmap([ 1, 1, 0],[ 0,.4,.8],3);
             c4=cmap([ 0,.4,.8],[ 0, 0, 1],12);
+            World_Data.islands_colormap = [c4;c3;c2;c1];
+            colormap(World_Data.islands_colormap)
             
-            cmapX = [c4;c3;c2;c1];
+        end
+        
+        function SpawnWater(World_Data)
+            %Render water with second surf map
+            S(1) = findobj('Tag','MapSurf');
+            S(2) = surfl(World_Data.WaterMap);
+            set(S(2),'EdgeColor','none','FaceAlpha',0.5,'Tag','WaterSurf');
+                        
+            cmapX = World_Data.islands_colormap;
             cmapY = (cmapX.*0)+[0,0.3,1];
             cmapL = [cmapX;cmapY];
             colormap(cmapL)
