@@ -41,14 +41,8 @@ classdef World < handle
             ax=gca;
             ax.Projection = 'perspective';
             set(ax,'Zlim',[0,2000]);
-            shading interp;
             
-            c1=cmap([.6,.8,.8],[ 0,.5, 0],40);
-            c2=cmap([ 0,.5, 0],[ 1, 1, 0], 5);
-            c3=cmap([ 1, 1, 0],[ 0,.4,.8],10);
-            c4=cmap([ 0,.4,.8],[ 0, 0, 1],40);
-            colormap([c4;c3;c2;c1])
-            
+            World_Data.ColorIslandsBasic(ax)
         end
         
         function SpawnWater(World_Data)
@@ -112,5 +106,18 @@ classdef World < handle
         end
         
     end
+    methods (Static)
+       
+        function ColorIslandsBasic(Axes)
+            shading interp;
+            
+            c1=cmap([.6,.8,.8],[ 0,.5, 0],40);
+            c2=cmap([ 0,.5, 0],[ 1, 1, 0], 5);
+            c3=cmap([ 1, 1, 0],[ 0,.4,.8],10);
+            c4=cmap([ 0,.4,.8],[ 0, 0, 1],40);
+            colormap(Axes,[c4;c3;c2;c1])
+        end 
+    end
+    
 end
 

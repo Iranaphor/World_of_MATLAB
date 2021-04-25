@@ -1,10 +1,23 @@
-function generateWorld(~,~)
+function generateWorld()
+    
+%     % As of R2021a
+%     arguments
+%        debug (1,1) Bool {fcn1,fcn2} = true;
+%     end
+    
     close, clc, clear
     add_all_files()
+    debug = true;
     
     % Create and Label Window
     supplot(1,1,1,1,'');
-    f=findobj(gcf); set(f(2),'Tag','SuperPlot');
+    f=findobj(gcf); 
+    set(f(1),'MenuBar', 'none');
+    set(f(2),'Tag', 'SuperPlot');
+    
+    if debug
+        set(gcf,'WindowStyle','docked')
+    end
     
     % Setup World Details
     global World_Data;
