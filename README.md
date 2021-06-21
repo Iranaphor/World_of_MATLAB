@@ -1,5 +1,10 @@
 # World_of_MATLAB
 
-o/ Master
+My friend told me MATLAB wasnt a game engine. I set out to prove him wrong.
 
-o/ from example_merge
+What does a system need to be a game engine really?
+-[x] Graphics
+-[x] Sound
+-[x] Animation
+-[x] World Generation
+-[ ] Multiplayer?
